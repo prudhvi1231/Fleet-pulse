@@ -1,63 +1,64 @@
 @if (authService.isAuthenticated()) {
-  <!-- Top App Navigation Bar -->
-  <header class="app-toolbar" role="banner">
-    <div class="toolbar-brand">
-      <a routerLink="/" class="brand-link">
-        <span class="brand-bolt">⚡</span>
-        <span class="brand-name">Fleet Pulse</span>
-      </a>
-      <span class="console-tag">Live Ops Console</span>
-    </div>
+<!-- Top App Navigation Bar -->
+<header class="app-toolbar" role="banner">
+  <div class="toolbar-brand">
+    <a routerLink="/" class="brand-link">
+      <span class="brand-bolt">⚡</span>
+      <span class="brand-name">Fleet Pulse</span>
+    </a>
+    <span class="console-tag">Live Ops Console</span>
+  </div>
 
-    <!-- Navigation Links -->
-    <nav class="toolbar-nav" role="navigation" aria-label="Main Navigation">
-      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" class="nav-item">
-        Fleet Overview
-      </a>
-      <!-- Operator only: hidden for viewers -->
-      <a *appHasRole="'operator'" routerLink="/rules" routerLinkActive="active-link" class="nav-item">
-        Alert Rules
-      </a>
-      <a routerLink="/settings" routerLinkActive="active-link" class="nav-item">
-        Settings
-      </a>
-    </nav>
+  <!-- Navigation Links -->
+  <nav class="toolbar-nav" role="navigation" aria-label="Main Navigation">
+    <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" class="nav-item">
+      Fleet Overview
+    </a>
+    <!-- Operator only: hidden for viewers -->
+    <a *appHasRole="'operator'" routerLink="/rules" routerLinkActive="active-link" class="nav-item">
+      Alert Rules
+    </a>
+    <a routerLink="/settings" routerLinkActive="active-link" class="nav-item">
+      Settings
+    </a>
+  </nav>
 
-    <!-- Right Controls: Transport Health & User Profile -->
-    <div class="toolbar-right">
-      <app-connection-status></app-connection-status>
+  <!-- Right Controls: Transport Health & User Profile -->
+  <div class="toolbar-right">
+    <app-connection-status></app-connection-status>
 
-      <div class="user-profile">
-        <span class="user-email">{{ authService.currentUser()?.email }}</span>
-        <span class="role-badge role-{{ authService.currentUser()?.role }}">
-          {{ authService.currentUser()?.role }}
-        </span>
-      </div>
-
-      <button (click)="logout()" class="btn-logout" title="Sign out of Fleet Pulse">
-        Sign Out
-      </button>
-    </div>
-  </header>
-
-  <!-- Global Stale Data Notification Banner (E2 requirement) -->
-  @if (pipeline.isStale()) {
-    <div class="stale-banner" role="alert" aria-live="assertive">
-      <span class="stale-icon">⚠️</span>
-      <span>
-        <strong>Stale Data Warning:</strong> No live stream events received for <strong>{{ pipeline.staleDurationSec() }}s</strong>. Displayed metrics may be out of date.
+    <div class="user-profile">
+      <span class="user-email">{{ authService.currentUser()?.email }}</span>
+      <span class="role-badge role-{{ authService.currentUser()?.role }}">
+        {{ authService.currentUser()?.role }}
       </span>
     </div>
-  }
 
-  <!-- Main View Content -->
-  <main class="main-content" role="main">
-    <router-outlet></router-outlet>
-  </main>
+    <button (click)="logout()" class="btn-logout" title="Sign out of Fleet Pulse">
+      Sign Out
+    </button>
+  </div>
+</header>
 
-  <!-- Live In-Browser Incident Panel -->
-  <app-incident-panel></app-incident-panel>
-} @else {
-  <!-- Unauthenticated (Login view) -->
+<!-- Global Stale Data Notification Banner (E2 requirement) -->
+@if (pipeline.isStale()) {
+<div class="stale-banner" role="alert" aria-live="assertive">
+  <span class="stale-icon">⚠️</span>
+  <span>
+    <strong>Stale Data Warning:</strong> No live stream events received for <strong>{{ pipeline.staleDurationSec()
+      }}s</strong>. Displayed metrics may be out of date.
+  </span>
+</div>
+}
+
+<!-- Main View Content -->
+<main class="main-content" role="main">
   <router-outlet></router-outlet>
+</main>
+
+<!-- Live In-Browser Incident Panel -->
+<app-incident-panel></app-incident-panel>
+} @else {
+<!-- Unauthenticated (Login view) -->
+<router-outlet></router-outlet>
 }
