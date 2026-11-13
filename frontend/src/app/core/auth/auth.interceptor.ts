@@ -36,6 +36,11 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
           return throwError(() => error);
         }
 
+        // Only attempt refresh if the user was authenticated with a token
+        if (!token) {
+          return throwError(() => error);
+        }
+
         // Token expired or invalid: handle concurrency lock
         return handle401Error(authReq, next, authService);
       }

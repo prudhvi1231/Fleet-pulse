@@ -31,6 +31,7 @@ export class RuleEvaluatorService {
   private toastTimer: any = null;
 
   public init() {
+    if (this.streamSub) return;
     this.loadRules();
 
     this.streamSub = this.pipeline.metricEvents$.subscribe((event: MetricEvent) => {
@@ -39,14 +40,26 @@ export class RuleEvaluatorService {
   }
 
   public destroy() {
-    if (this.streamSub) this.streamSub.unsubscribe();
-    if (this.toastTimer) clearTimeout(this.toastTimer);
+    if (this.streamSub) {
+      this.streamSub.unsubscribe();
+      this.streamSub = null;
+    }
+    if (this.toastTimer) {
+      clearTimeout(this.toastTimer);
+      this.toastTimer = null;
+    }
+    this.activeRules.set([]);
+    this.breachTrackers.clear();
+    this.firingIncidentKeys.clear();
   }
 
   public loadRules() {
     this.http.get<Rule[]>(`${APP_CONFIG.apiBaseUrl}/rules`).subscribe({
       next: (rules) => {
         this.activeRules.set(rules);
+      },
+      error: () => {
+        // Silently catch if not yet authenticated
       }
     });
   }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule } from '@angular/router';
 import { AuthService } from './core/auth/auth.service.js';
@@ -22,13 +22,19 @@ import { RuleEvaluatorService } from './features/rules/rule-evaluator.service.js
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App implements OnInit {
+export class App {
   public authService = inject(AuthService);
   public pipeline = inject(StreamPipelineService);
   private evaluator = inject(RuleEvaluatorService);
 
-  ngOnInit(): void {
-    this.evaluator.init();
+  constructor() {
+    effect(() => {
+      if (this.authService.isAuthenticated()) {
+        this.evaluator.init();
+      } else {
+        this.evaluator.destroy();
+      }
+    });
   }
 
   logout(): void {
