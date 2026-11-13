@@ -1,0 +1,151 @@
+.app-toolbar {
+  height: 56px;
+  background: var(--bg-header, #10121a);
+  border-bottom: 1px solid var(--border-color, #272b38);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 24px;
+}
+
+.toolbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.brand-bolt {
+  font-size: 20px;
+}
+
+.brand-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.console-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted, #94a3b8);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+.toolbar-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-item {
+  color: var(--text-muted, #94a3b8);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.nav-item:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active-link {
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.12);
+  font-weight: 600;
+}
+
+.toolbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.user-email {
+  color: var(--text-primary, #e2e8f0);
+}
+
+.role-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.role-operator {
+  background: rgba(139, 92, 246, 0.2);
+  color: #c084fc;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+}
+
+.role-viewer {
+  background: rgba(100, 116, 139, 0.2);
+  color: #94a3b8;
+  border: 1px solid rgba(100, 116, 139, 0.35);
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid var(--border-color, #272b38);
+  color: var(--text-muted, #94a3b8);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-logout:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.stale-banner {
+  background: #78350f;
+  color: #fef3c7;
+  border-bottom: 1px solid #d97706;
+  padding: 8px 20px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: pulse-stale 2s infinite ease-in-out;
+}
+
+@keyframes pulse-stale {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.stale-icon {
+  font-size: 16px;
+}
+
+.main-content {
+  padding: 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
